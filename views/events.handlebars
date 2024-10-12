@@ -1,0 +1,55 @@
+<h1>#Recently Events</h1>
+<p>Here you can check recently events especially the concerts worldwide.<br/>2024 is the memorable year as TXT's music map is going wider and wider.</p>
+
+<!--
+<div class="events-list">
+  {{#each events}}
+    <div class="event-item">
+      <div class="event-date">{{this.concert_date}}</div>
+      <div class="event-location">
+        <span class="event-city">{{this.country}}</span>
+        <span class="event-venue">{{this.place}}</span>
+      </div>
+    </div>
+  {{/each}}
+</div>
+-->
+
+
+<div class="events-list">
+  {{#each events}}
+    <div class="event-item">
+      <div class="event-date">
+        {{#each (split this.concert_date " ")}} <!-- 使用 split 助手函数 -->
+          <div class="event-month-day">{{this}}</div>
+        {{/each}}
+      </div>
+      <div class="event-location">
+        <span class="event-city">{{this.country}}</span>
+        <span class="event-venue">{{this.place}}</span>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+
+
+<!-- 仅在最后一页时显示 -->
+{{#if (eq currentPage totalPages)}}
+  <p class="events-p">* MORE TO BE ANNOUNCED *</p>
+{{/if}}
+
+<!-- Pagination Controls -->
+<ul class="pagination">
+  {{#if (gt totalPages 1)}}
+    {{#if (gt currentPage 1)}}
+      <li><a href="?page={{decrement currentPage}}">Previous</a></li>
+    {{/if}}
+    {{#each (range 1 totalPages)}}
+      <li><a href="?page={{this}}">{{this}}</a></li>
+    {{/each}}
+    {{#if (lt currentPage totalPages)}}
+      <li><a href="?page={{increment currentPage}}">Next</a></li>
+    {{/if}}
+  {{/if}}
+</ul>

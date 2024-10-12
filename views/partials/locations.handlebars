@@ -1,0 +1,45 @@
+<div class="locations-list">
+  {{#each locations}}
+    <div class="locations-item">
+      <h2>{{this.name}}</h2>
+      <h3>{{this.type}}</h3>
+      <h3>In {{this.country}}</h3>
+      <h3>{{this.address}}</h3>
+      <h3>{{this.year}}</h3>
+      <a href="{{this.link}}" target="_blank">⥽ Click to View ⥼</a>
+    </div>
+  {{/each}}
+</div>
+
+
+<!--  &#x279C;  -->
+
+<!-- Pagination Controls for Locations -->
+<ul class="pagination">
+  {{#if (gt totalLocationsPages 1)}}
+    {{#if (gt locationsCurrentPage 1)}}
+      <li><a
+          href="?locationsPage={{decrement locationsCurrentPage}}&outfitsPage={{outfitsCurrentPage}}&foodsPage={{foodsCurrentPage}}"
+        >Previous</a></li>
+    {{/if}}
+    
+    <!--
+    {{#each (range 1 totalLocationsPages)}}
+      <li>
+        <a href="?locationsPage={{this}}&outfitsPage={{outfitsCurrentPage}}&foodsPage={{foodsCurrentPage}}"
+           class="{{#if (eq this locationsCurrentPage)}}active{{/if}}">{{this}}</a>
+      </li>
+    {{/each}}
+    
+     生成页码链接 -->
+
+    {{#if (lt locationsCurrentPage totalLocationsPages)}}
+      <li><a
+          href="?locationsPage={{increment locationsCurrentPage}}&outfitsPage={{outfitsCurrentPage}}&foodsPage={{foodsCurrentPage}}"
+        >Next</a></li>
+    {{/if}}
+  {{/if}}
+</ul>
+
+
+

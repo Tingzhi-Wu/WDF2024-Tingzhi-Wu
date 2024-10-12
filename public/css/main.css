@@ -1,0 +1,786 @@
+/* 
+-------body---------
+ */
+body {
+    margin-top: 50px;
+    margin-bottom: 200px;
+    font-family: chinchilla, sans-serif;
+    text-align: center;
+    background-color: #becedb;
+}
+
+
+/*
+--------- for all pages----------
+*/
+
+h1 {
+    color: white;
+    font-size: 3.4em;
+}
+
+
+h2 {
+    text-align: center; /* Center member section title */
+    margin: 20px 0; /* Space above and below */
+    color: white;
+    letter-spacing: 1px;
+}
+
+p {
+    color: white;
+    font-size: 1.1em;
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    line-height: 1.3;
+    letter-spacing: 1.3px;
+}
+
+ul {
+    list-style-type: none; /* 移除项目符号 */
+    padding-left: 0; /* 可选：移除左侧缩进 */
+  }
+
+
+/*
+--------menu-----------
+*/
+
+.navbar {
+    padding: 80px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* 垂直排列 Logo 和导航链接 */
+    align-items: center; /* 居中对齐 */
+}
+
+/* Logo 样式 */
+
+.logo-image {
+    width: 130px; /* 根据需要调整宽度 */
+    height: auto; /* 保持宽高比 */
+}
+
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.nav-item {
+    position: relative;
+    text-align: center;
+}
+
+.nav-item a {
+    text-decoration: none;
+    font-size: 1.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.nav-item span {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+
+.nav-item:hover box-icon {
+    opacity: 0;
+}
+
+.nav-item:hover span {
+    opacity: 1; 
+}
+
+.nav-item:hover a {
+    color: #ffffff;
+}
+
+
+
+/*
+-------about page------
+*/
+
+.group {
+    display: flex;
+    flex-direction: column; /* Arrange items in a column */
+    align-items: center; /* Center items horizontally */
+    margin-bottom: 0px; /* Space below the group section */
+    padding: 10px; /* Add padding */
+}
+
+.group-image {
+    width: 120%; /* Set a fixed width */
+    height: 100%; /* Set a fixed height for uniformity */
+    margin-top: -50px;
+}
+
+.group-description {
+    max-width: 750px; /* Limit width of the description */
+    text-align: center; /* Center the text */
+}
+
+
+.group-description:first-child {
+    border-top: 1px solid #ffffff;
+}
+
+.group-description:last-child {
+    border-bottom: none;
+}
+
+
+.group-description h2{
+    font-size: 2em;
+}
+
+.group-description p{
+    margin-top: -10px;
+}
+
+.shell {
+    position:relative;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    transform-style: preserve-3d;
+    perspective: 900px;
+}
+
+
+.box {
+    position: relative;
+    width: 220px; /* 根据需要调整宽度 */
+    height: 290px; /* 根据需要调整高度 */
+    margin: 50px; /* 卡片之间的间距 */
+    margin-top: 100px;
+    margin-bottom: 90px;
+    border-radius: 15px; /* 圆角边框 */
+    overflow: visible; /* 允许内容溢出 */
+    background: rgba(255, 255, 255, 0.1); /* 轻微透明背景 */
+    backdrop-filter: blur(10px); /* 玻璃效果 */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    transition: transform 0.5s; /* 平滑过渡 */
+}
+
+.box:hover {
+    transform: rotateY(0deg) scale(1.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.box:hover ~ .box{
+    transform: rotateY(-13deg);
+}
+
+
+.imgBx {
+    position: absolute; /* 绝对定位 */
+    max-width: 100%;
+    top: 20px; /* 将图像向上移动以实现超出效果 */
+    left: 20%; /* 水平居中 */
+    transform: translateX(-80%); /* 调整居中 */
+    z-index: 2; /* 确保图像在其他内容上面 */
+    width: 120px; /* 设定容器宽度 */
+    height: 120px; /* 设定容器高度 */
+}
+
+.imgBx img {
+    width: 300%;
+    height: 270%;
+    object-fit: contain; /* 保持宽高比，裁剪图像 */
+    z-index: 2; /* On top of background */
+    margin-top: -160px;
+}
+
+.member-name {
+    position: relative; /* 为定位提供参考 */
+    margin-top: 120px;
+    z-index: 3;
+    
+}
+
+.member-name h2 {
+    font-family: chinchilla, sans-serif;;
+    font-size: 2.2em; /* 设置字体大小 */
+    color: #ffffff; /* 设置字体颜色 */
+    background-color: rgb(117, 154, 182); /* 背景颜色，带有透明度 */
+    border-radius: 5px; /* 圆角 */
+    padding: 8px 90px; /* 内边距 */
+    margin-left: -30px;
+    margin-top: 10px;
+    transform: rotate(-5deg); /* 向左旋转5度 */
+    display: inline-block; /* 使元素宽度适应内容 */
+    transition: background-color 0.3s; /* 平滑过渡效果 */
+}
+
+.content p {
+    color: rgb(255, 255, 255);
+    transition: 0.6s;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(-20px);
+    margin: -35px;
+}
+
+.box:hover .content p {
+    opacity: 1;
+    transform: translateY(10px);
+}
+
+
+
+/*
+-------music page----------
+*/
+
+.music-player {
+    max-width: 400px; /* Maximum width for the player */
+    width: 100%; /* Set width to 100% of the max-width */
+    height: 600px; /* Set a taller height for the player */
+    margin: 80px auto; /* Center the player */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center align items */
+    padding: 30px; /* Add some padding */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+
+.album-cover {
+    width: 300px; /* Set a fixed width for album cover */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Rounded corners for cover image */
+    box-shadow: 8px 8px rgb(255, 255, 255); /* Shadow for depth */
+    margin-bottom: 20px; /* Space below the image */
+    margin-top: 40px;
+}
+
+.album-info {
+    text-align: center; /* Center align text */
+    margin-top: 50px;
+}
+
+.album-info h2 {
+    margin: 0; /* Remove default margin */
+    font-size: 1.3em; /* Set font size for title */
+    color: #ffffff;
+}
+
+.album-info p {
+    margin: 5px 0; /* Space between paragraphs */
+    color: #ffffff;
+    font-size: 20px;
+    font-family: chinchilla, sans-serif;
+}
+
+.album-info p span {
+    color: #717171; /* 可以单独设置 <span> 内的文字颜色 */
+    font-family: "ivysoft-variable", sans-serif;
+  }
+
+#titleSong {
+font-size: 25px;
+}
+
+/* Button Styles */
+.controls {
+    display: flex;
+    justify-content: center; /* Center the controls */
+    align-items: center; /* Align items vertically */
+    margin-top: 20px; /* Space above the controls */
+}
+
+.control-button {
+    background: transparent; /* Transparent background */
+    border: none; /* No border */
+    font-size: 24px; /* Adjust size as necessary */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 0 20px; /* Space between buttons */
+    transition: transform 0.2s; /* Animation effect */
+}
+
+.control-button:hover {
+    color: #ffffff;
+}
+
+
+
+/*
+----------imprints page-------
+*/
+
+.content {
+    display: flex;
+    justify-content: space-around; /* 三个板块并排 */
+    margin-top: 20px;
+}
+
+.sub-section {
+    flex: 1; /* 均匀分配宽度 */
+    text-align: center; /* 文本居中 */
+    margin-top: 50px;
+    position: relative;
+}
+
+.folder {
+    width: 220px; /* 文件夹的宽度 */
+    height: 160px; /* 文件夹的高度 */
+    background-color: #ffffff; /* 文件夹颜色 */
+    border-radius: 10px; /* 圆角 */
+    position: relative; /* 使得子元素绝对定位相对于父元素 */
+    margin: 0 auto; /* 中心对齐 */
+    overflow: hidden;
+}
+
+.folder-tab {
+    width: 230px; /* 文件夹标签宽度 */
+    height: 150px; /* 文件夹标签高度 */
+    background-color: #4287b5; /* 标签颜色 */
+    border-top-left-radius: 20px; /* 圆角 */
+    border-top-right-radius: 50px;
+    position: absolute;
+    bottom: -20px; /* 使标签位于文件夹顶部 */
+    left: -10px;
+}
+
+
+.folder::before {
+    content: '';
+    position: absolute;
+    width: 110px; /* 缺口的宽度 */
+    height: 30px; /* 缺口的高度 */
+    background-color: #becedb; /* 和文件夹颜色相同 */
+    top: -15px; /* 垂直向上移动 */
+    right: 0; /* 右边对齐 */
+    border-bottom-left-radius: 10px; /* 圆角 */
+}
+
+
+.icon-container {
+    display: flex;
+    flex-direction: column; /* 图标在上，标题在下 */
+    align-items: center; /* 居中对齐 */
+    position: relative;
+}
+
+.icon-container h2 {
+    margin-top: 40px; /* 图标与标题之间的间距 */
+    color: #000000;
+    position: absolute;
+    top: 68px;
+    font-size: 1.8em;
+    line-height: 18px;
+}
+
+.icon-container svg {
+    position: relative; /* 确保图标显示在上方 */
+    z-index: 1; /* 确保图标在文字上层 */
+    margin-top: 15px;
+}
+
+
+/*
+---------location part---------
+*/
+
+.locations-item {
+    border-top: 1px solid #000000; /* 每个事件项顶部都有一条横线 */
+
+}
+
+.locations-item:first-child {
+    border-top: none; /* 去掉第一个事件项的顶部边框 */
+}
+
+
+.locations-item h2{
+    color: #ffffff;
+}
+
+.locations-item h3{
+    color: #000000;
+}
+
+.locations-list {
+    margin-bottom: 30px;
+}
+
+.locations-list a {
+    color: inherit; /* 继承父元素的文字颜色 */
+}
+
+.locations-list a:hover {
+    color: #ffffff; /* 悬停时可以使用你想要的颜色 */
+}
+
+
+/*
+---------outfit part---------
+*/
+
+
+.outfits-item {
+    margin-top: 60px;
+    text-align: center; /* 文本居中 */
+}
+
+.outfits-item h2{
+    color: #de9b29;
+    margin-bottom: -10px;
+    position: relative; /* 相对定位 */
+    z-index: 2;
+    font-size: 1.8em;
+}
+
+.outfits-item h3{
+    color: #ffffff;
+    margin-top: -12px;
+    position: relative; /* 相对定位 */
+    z-index: 1;
+    font-size: 1.1em;
+}
+
+.outfits-list {
+    display: flex; /* 使用 flexbox 布局 */
+    flex-wrap: wrap; /* 允许换行 */
+    justify-content: center; /* 居中对齐 */
+}
+
+.outfits-item img {
+    width: 230px; /* 固定宽度 */
+    height: 200px; /* 固定高度 */
+    object-fit: cover; /* 保持比例并填充整个框 */
+    border-radius: 4px; /* 圆角效果 */
+}
+
+
+
+/*
+---------food part---------
+*/
+
+.foods-list {
+    margin-bottom: 30px;
+}
+
+.foods-item {
+    border-top: 1px solid #000000; /* 每个事件项顶部都有一条横线 */
+}
+
+.foods-item:first-child {
+    border-top: none; /* 去掉第一个事件项的顶部边框 */
+}
+
+
+/*
+---------event page---------
+*/
+
+/* pagination style!!!! also for imprint page */
+.pagination {
+    display: flex; /* 使用flex布局 */
+    list-style-type: none; /* 移除默认的列表样式 */
+    padding: 0; /* 移除内边距 */
+    margin: 20px auto; /* 使用 auto 来居中 */
+    justify-content: center;
+}
+
+.pagination li {
+    margin: 0 5px; /* 每个页码之间的间距 */
+}
+
+.pagination a {
+    text-decoration: none; /* 移除链接下划线 */
+    color: #4287b5; /* 页码颜色 */
+    padding: 10px 15px; /* 添加内边距，使链接更大 */
+    font-size: 1em;
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+}
+
+.pagination a:hover { 
+    color: white; /* 悬停时文字颜色 */
+}
+
+.events-list{
+    margin-top: 80px;
+    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+    align-items: center;
+}
+
+.event-item {
+    display: flex;
+    justify-content: space-between; /* 左右对齐 */
+    align-items: center; /* 顶部对齐 */
+    width: 100%; /* 使事件项占据整个宽度 */
+    max-width: 600px; /* 设置最大宽度 */
+    padding: 40px; /* 添加内边距 */
+    border-top: 1px solid #000000; /* 每个事件项顶部都有一条横线 */
+    border-bottom: 1px solid #000000;
+    
+}
+
+.event-item:first-child {
+    border-bottom: none; /* 去掉第一个事件项的顶部边框 */
+}
+
+.event-item:last-child {
+    border-top: none; /* 去掉最后一个事件项的底部边框 */
+}
+
+.event-date {
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+    align-items: center;
+    font-size: 18px; /* 日期字体大小 */
+    font-weight: bold; /* 加粗 */
+    margin-right: 20px; /* 日期与地点之间的间距 */
+    color: #4287b5;
+}
+
+.event-month-day {
+    font-size: 18px; /* 月日字体大小 */
+}
+
+.event-location {
+    display: flex; /* 使用 flexbox 对齐城市和场馆 */
+    flex-direction: column; /* 垂直排列 */
+    align-items: flex-end; /* 右对齐 */
+    text-align: right; /* 右对齐文本 */
+    margin-left: auto; /* 将位置推向右侧 */
+}
+
+.event-city {
+    font-size: 28px; /* 城市字体大小 */
+    font-weight: bold; /* 加粗 */
+    color: #de9b29;
+}
+
+.event-venue {
+    font-size: 16px; /* 场馆字体大小 */
+    color: rgb(93, 195, 84); /* 颜色 */
+}
+
+/*
+---------contact page---------
+*/
+
+.contact-container a, .contact-container p{
+    text-decoration: none;
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    color: #4287b5;
+}
+
+.contact-container a{
+    font-size: 1.1em;
+}
+
+/* Style for the main container */
+.contact-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between the sections */
+    align-items: flex-start; /* Align items at the start */
+    max-width: 1200px; /* Optional: Set a maximum width */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Personal information section */
+.contact-info {
+    flex: 1; /* Take up one half of the container */
+    padding: 20px; /* Add some padding */
+    margin-right: 10px; /* Add some space to the right */
+}
+
+/* Contact form section */
+.contact-form {
+    flex: 1; /* Take up one half of the container */
+    padding: 20px; /* Add some padding */
+    margin-left: 10px; /* Add some space to the left */
+    margin-right: 100px;
+}
+
+/* Additional styles for form elements */
+.contact-form input,
+.contact-form textarea {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside inputs */
+    margin: 10px 0; /* Margin for spacing */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.contact-form button {
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    font-size: 1em;
+    background-color: transparent; /* Green background for the button */
+    color: #4287b5; /* White text color */
+    border: none; /* Remove border */
+    padding: 10px 30px; /* Padding */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.contact-form button:hover {
+    color: #ffffff;
+}
+
+.contact-form input:focus {
+    outline: none; /* Remove focus outline */
+    border-color: #4287b5; /* Optional: change border color on focus */
+}
+
+.contact-form textarea:focus {
+    outline: none; /* Remove focus outline */
+    border-color: #4287b5; /* Optional: change border color on focus */
+}
+
+
+.name, .email, .message{
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    color: #ffffff;
+}
+
+#name, #email, #message {
+        font-family: "ivysoft-variable", sans-serif;
+        font-variation-settings: "slnt" -6, "wght" 700;
+        color: #040404;
+}
+
+
+/*
+------login page------
+*/
+
+.error, .success{
+    color: #ffffff;
+    font-size: 1.6em;
+}
+
+
+a {
+    text-decoration: none;
+    color: #4287b5;
+}
+
+.login-container {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Align items vertically */
+    justify-content: center; /* Center items vertically */
+    max-width: 1200px; /* Optional: Set a maximum width */
+    margin: 0 auto; /* Center the container */
+}
+
+#loginForm {
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    padding: 20px; /* Add some padding */
+    margin-left: 10px; /* Add some space to the left */
+    margin-right: 100px;
+}
+
+#loginForm label {
+    display: inline-block; /* Make label take full width */
+    width: 120px; /* Set a fixed width for labels to align inputs */
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+#loginForm input {
+    width: calc(100% - 130px); /* Full width minus the label width */
+    max-width: 350px; /* Maximum width */
+    padding: 10px; /* Padding inside inputs */
+    margin: 10px 0; /* Margin for spacing */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+}
+
+#loginForm input:focus {
+    outline: none; /* Remove focus outline */
+    border-color: #4287b5; /* Optional: change border color on focus */
+}
+
+#loginForm button {
+    font-size: 1em;
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    background-color: transparent; /* Button background color */
+    color: #4287b5; /* White text color */
+    border: none; /* Remove border */
+    padding: 10px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+#loginForm button:hover {
+    color: #ffffff; /* Darker green on hover */
+}
+
+
+
+#username{
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    color: #040404;
+}
+
+
+
+
+/*
+--------footer----------
+*/
+
+footer {
+    color: #b1dcb1; /* 字体颜色 */
+    text-align: center; /* 居中 */
+    position: fixed; /* 固定在页面底部 */
+    left: 0;
+    bottom: 0; /* 固定在底部 */
+    width: 100%; /* 满宽度 */
+}
+
+.footer-container {
+    display: flex; /* 使用 Flexbox */
+    justify-content: space-between; /* 左右对齐 */
+    align-items: center; /* 垂直居中对齐 */
+    padding: 0 20px; /* 两侧内边距 */
+    background-color: #99999974;
+}
+
+.footer-container p{
+    color: #000000;
+    font-size: 0.6em;
+}
+.social-links {
+    display: flex; /* 使用 Flexbox */
+    gap: 10px; /* 图标间距 */
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.social-links a {
+    text-decoration: none; /* Remove underline from links */
+    font-size: 24px; /* Icon size */
+    transition: transform 0.3s; /* Smooth transition on hover */
+}
+
+.social-links a:hover {
+    transform: scale(1.2); /* Slightly enlarge the icon on hover */
+}

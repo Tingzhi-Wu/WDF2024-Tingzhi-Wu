@@ -1,0 +1,58 @@
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="logo"><img src="/img/logo.svg" class="logo-image" /></a>
+    <!-- 网站 Logo -->
+    <div class="nav-links" id="nav-links">
+      <div class="nav-item">
+        <a href="/" title="Home">
+          <box-icon name="file-txt" type="solid"></box-icon>
+          <span>Home</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="/about" title="About">
+          <box-icon type="solid" name="quote-single-left"></box-icon>
+          <span>About</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="/music" title="Music">
+          <box-icon type="solid" name="album"></box-icon>
+          <span>Music</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="/imprints" title="Starlit Imprints">
+          <box-icon type="solid" name="magic-wand"></box-icon>
+          <span>Starlit Imprints</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="/events" title="Events">
+          <box-icon type="solid" name="hot"></box-icon>
+          <span>Events</span>
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="/contact" title="Contact">
+          <box-icon name="plus-medical"></box-icon>
+          <span>Contact</span>
+        </a>
+      </div>
+
+      <div class="nav-item">
+        {{#if isLoggedIn}}
+          <a href="/logout" title="Log out">
+            <box-icon name="ghost" type="solid"></box-icon>
+            <span>Hi, {{name}} - Log out</span>
+          </a>
+        {{else}}
+          <a href="/login" title="Login">
+            <box-icon name="ghost" type="solid"></box-icon>
+            <span>Login</span>
+          </a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</nav>

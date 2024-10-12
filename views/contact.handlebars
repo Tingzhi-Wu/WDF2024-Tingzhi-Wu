@@ -1,0 +1,43 @@
+<h1>#Contact Me</h1>
+<p>If you have any questions or comments, <br>feel free to reach out to me through the contact form below or via our contact details.</p>
+
+<div class="contact-container"> <!-- New container for flex layout -->
+    <section class="contact-info">
+        <div class="contact-details">
+            <h2>Email</h2>
+            <p><a href="mailto:youremail@example.com">wuti23rw@student.ju.se</a></p>
+
+            <h2>Social Networks</h2>
+            <ul>
+                <li><a href="#" target="_blank">Instagram</a></li>
+                <li><a href="#" target="_blank">Facebook</a></li>
+            </ul>
+
+            <h2>Address</h2>
+            <p class="address">15 Tallortsbacken<br>
+            Jonkoping, Sweden, 55458</p>
+        </div>
+    </section>
+
+    <section class="contact-form">
+        <h2>Get in Touch</h2>
+        <form action="/submit-contact" method="POST">
+            <div>
+                <label for="name" class="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div>
+                <label for="email" class="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div>
+                <label for="message" class="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
+</div>

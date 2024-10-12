@@ -1,0 +1,40 @@
+
+<div class="foods-list">
+    {{#each foods}}
+    <div class="foods-item">
+        <h2>{{this.name}}</h2>
+        <h3>Brand: {{this.brand}}</h3>
+        <h3>Price: {{this.price}}</h3>
+        <h3>{{this.recommended_by}}</h3>
+    </div>
+    {{/each}}
+</div>
+
+
+<!-- Pagination Controls for Foods -->
+<ul class="pagination">
+  {{#if (gt totalFoodsPages 1)}}
+    {{#if (gt foodsCurrentPage 1)}}
+      <li><a
+          href="?foodsPage={{decrement foodsCurrentPage}}&locationsPage={{locationsCurrentPage}}&outfitsPage={{outfitsCurrentPage}}"
+        >Previous</a></li>
+    {{/if}}
+
+    <!-- 
+    {{#each (range 1 totalFoodsPages)}}
+      <li>
+        <a href="?foodsPage={{this}}&locationsPage={{locationsCurrentPage}}&outfitsPage={{outfitsCurrentPage}}"
+           class="{{#if (eq this foodsCurrentPage)}}active{{/if}}">{{this}}</a>
+      </li>
+    {{/each}}
+    生成页码链接 -->
+
+    {{#if (lt foodsCurrentPage totalFoodsPages)}}
+      <li><a
+          href="?foodsPage={{increment foodsCurrentPage}}&locationsPage={{locationsCurrentPage}}&outfitsPage={{outfitsCurrentPage}}"
+        >Next</a></li>
+    {{/if}}
+  {{/if}}
+</ul>
+
+

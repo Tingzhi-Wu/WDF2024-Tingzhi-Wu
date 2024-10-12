@@ -1,0 +1,45 @@
+<h1>#About Group</h1>
+
+
+{{#each group}} <!-- 使用 each 遍历 group_info 数组 -->
+<div class="group">
+  {{#if (eq this.id 1)}} <!-- 检查 id 是否为 1 -->
+    <img src="/img/group.png" alt="Group Image {{this.id}}" class="group-image" />
+  {{/if}}
+  <div class="group-description">
+    <h2>{{this.name}}</h2> <!-- 显示组合名称 -->
+    <p>[ {{this.category}} ]</p> <!-- 添加类别 -->
+    <p>{{this.date}}</p>
+    <p>{{{this.description}}}</p>
+  </div>
+</div>
+{{/each}}
+
+
+
+<h1>#About Members</h1>
+<div class="shell">
+  {{#each members}}
+    <div class="box">
+      <div class="imgBx">
+        <img src="{{this.image}}" alt="{{this.name}}" />
+      </div>
+      <div class="member-name">
+        <h2>{{this.name}}</h2>
+      </div>
+      <div class="content">
+        <p>
+          Birthday:
+          {{this.birthday}}<br />
+          MBTI:
+          {{this.mbti}}<br />
+          Zodiac Sign:
+          {{this.zodiac_sign}}<br />
+          Blood Type:
+          {{this.blood_type}}
+        </p>
+      </div>
+    </div>
+
+  {{/each}}
+</div>

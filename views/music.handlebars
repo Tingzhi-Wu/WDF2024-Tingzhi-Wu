@@ -1,0 +1,75 @@
+<h1>#Discography</h1>
+<div class="music-player">
+  <img
+    id="albumCover"
+    src="{{albums.0.cover_image}}"
+    alt="{{albums.0.title}} Cover"
+    class="album-cover"
+  />
+  <div class="album-info">
+    <p>[Title Song]<br><span id="titleSong">{{{albums.0.title_song}}}</span></p>
+    <h2 id="albumTitle">{{{albums.0.title}}}</h2>
+    <h2><span id="releaseDate">{{{albums.0.release_date}}}</span></h2>
+  </div>
+  <div class="controls">
+    <button id="prevButton" class="control-button">↻</button>
+    <button id="playButton" class="control-button">♫</button>
+    <button id="nextButton" class="control-button">↺</button>
+  </div>
+
+  <div id="soundCloudPlayer" class="soundcloud-player" style="display: none;"></div>
+</div>
+
+<script>
+    let currentIndex = 0;
+    const albums = [
+        {{#each albums}}
+            {
+                title: "{{this.title}}",
+                release_date: "{{this.release_date}}",
+                cover_image: "{{this.cover_image}}",
+                title_song: "{{this.title_song}}",
+                audio_file: "{{this.audio_file}}"
+            }{{#unless @last}},{{/unless}}
+        {{/each}}
+    ];
+
+    function updateAlbumInfo(index) {
+        document.getElementById('albumCover').src = albums[index].cover_image;
+        document.getElementById('albumTitle').innerText = albums[index].title;
+        document.getElementById('titleSong').innerText = albums[index].title_song;
+        document.getElementById('releaseDate').innerText = albums[index].release_date;
+
+      const soundCloudLink = albums[index].audio_file;
+      document.getElementById('soundCloudPlayer').innerHTML = `
+          <iframe width="100%" height="166" scrolling="no" 
+          frameborder="no" 
+          allow="autoplay" 
+          src="https://w.soundcloud.com/player/?url=${encodeURIComponent(soundCloudLink)}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false">
+          </iframe>`;
+    }
+
+    document.getElementById('nextButton').onclick = function() {
+        currentIndex = (currentIndex + 1) % albums.length; // Go to next album
+        updateAlbumInfo(currentIndex);
+    };
+
+    document.getElementById('prevButton').onclick = function() {
+        currentIndex = (currentIndex - 1 + albums.length) % albums.length; // Go to previous album
+        updateAlbumInfo(currentIndex);
+    };
+
+ document.getElementById('playButton').onclick = function() {
+        const playerDiv = document.getElementById('soundCloudPlayer');
+
+        // Toggle SoundCloud player visibility
+        if (playerDiv.style.display === "none") {
+            playerDiv.style.display = "block"; // Show the player
+        } else {
+            playerDiv.style.display = "none"; // Hide the player
+        }
+    };
+
+    // Initialize with the first album
+    updateAlbumInfo(currentIndex);
+</script>
