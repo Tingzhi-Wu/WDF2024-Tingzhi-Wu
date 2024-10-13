@@ -159,8 +159,8 @@ if (!fs.existsSync(dbFile)) {
          name TEXT NOT NULL,
          brand TEXT NOT NULL,
          price TEXT NOT NULL,
-         recommended_by TEXT NOT NULL,
-         FOREIGN KEY (recommended_by) REFERENCES members(name)
+         recommended_by INTEGER NOT NULL,
+         FOREIGN KEY (recommended_by) REFERENCES members(id)
         )`,
         (err) => {
           if (err) {
@@ -463,7 +463,7 @@ const outfits = [
   },
 ];
 
-// model for food
+// model for foods
 const foods = [
   {
     id: 1,
@@ -733,7 +733,12 @@ app.get("/imprints", (req, res) => {
 
   const locationsQuery = "SELECT * FROM locations LIMIT ? OFFSET ?";
   const outfitsQuery = "SELECT * FROM outfits LIMIT ? OFFSET ?";
-  const foodsQuery = "SELECT * FROM foods LIMIT ? OFFSET ?";
+  //const foodsQuery = "SELECT * FROM foods LIMIT ? OFFSET ?"; //原代码 如果下行运行报错请恢复这行 目前下一行正常运行 TT
+  const foodsQuery = `
+        SELECT foods.id, foods.name, foods.brand, foods.price, members.name AS recommended_by
+        FROM foods
+        INNER JOIN members ON foods.recommended_by = members.id
+        LIMIT ? OFFSET ?`;
 
   const locationsCountQuery = "SELECT COUNT(*) AS count FROM locations";
   const outfitsCountQuery = "SELECT COUNT(*) AS count FROM outfits";
@@ -751,7 +756,7 @@ app.get("/imprints", (req, res) => {
 
       db.get(foodsCountQuery, (err, foodsCountResult) => {
         const totalFoodsPages = Math.ceil(
-          foodsCountResult.count / itemsPerPage
+          foodsCountResult.count / itemsPerPage //有报错 有可能是导致无法关联外键的原因
         );
 
         db.all(
@@ -777,6 +782,7 @@ app.get("/imprints", (req, res) => {
                         .status(500)
                         .send("Error retrieving foods data.");
 
+                        console.log("Food Rows:", foodRows);  
                     // 渲染页面，传递所有分页参数
                     res.render("imprints", {
                       locations: locationRows,
@@ -852,6 +858,11 @@ app.get("/outfits", (req, res) => {
 });
 */
 
+// 修改后的 foods 查询
+const query = "SELECT id, name, brand, price FROM foods LIMIT ? OFFSET ?";
+const countQuery = "SELECT COUNT(*) AS count FROM foods"; // 这个仍然保留
+
+
 app.get("/outfits", (req, res) => {
   const outfitsPage = parseInt(req.query.outfitsPage) || 1;
   const locationsPage = parseInt(req.query.locationsPage) || 1;
@@ -897,13 +908,13 @@ app.get("/foods", (req, res) => {
   const offset = (foodsPage - 1) * itemsPerPage;
 
   // 使用 INNER JOIN 获取推荐者的名字
-  const query = `
-    SELECT foods.id, foods.name, foods.brand, foods.price, members.name AS recommended_by
-    FROM foods
-    INNER JOIN members ON foods.recommended_by = members.id
-    LIMIT ? OFFSET ?`;
+  //const query = `
+    //SELECT foods.id, foods.name, foods.brand, foods.price, members.name AS recommended_by
+    //FROM foods
+    //INNER JOIN members ON foods.recommended_by = members.id
+    //LIMIT ? OFFSET ?`;
 
-  const countQuery = "SELECT COUNT(*) AS count FROM foods";
+  //const countQuery = "SELECT COUNT(*) AS count FROM foods";
 
   db.get(countQuery, (err, result) => {
     if (err) {
@@ -918,6 +929,7 @@ app.get("/foods", (req, res) => {
           res.status(500).send("Error retrieving foods data.");
         } else {
           // 确保正确传递数据到模板
+
           res.render("foods", {
             foods: rows, // 传递 foods 列表，其中包含推荐者的名字
             foodsCurrentPage: foodsPage,
@@ -1192,10 +1204,10 @@ function initializeFoodsData() {
     if (err) {
       console.error(err.message);
     }
-    foods.forEach((item) => {
+    foods.forEach((food) => {
       db.run(
         `INSERT INTO foods (name, brand, price, recommended_by) VALUES (?, ?, ?, ?)`,
-        [item.name, item.brand, item.price, item.recommended_by], // recommended_by 需要是 members.id
+        [food.name, food.brand, food.price, food.recommended_by],
         (err) => {
           if (err) {
             console.error(err.message);
