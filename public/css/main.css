@@ -116,7 +116,6 @@ ul {
     transition: opacity 0.6s ease;
 }
 
-
 .nav-item:hover box-icon {
     opacity: 0;
 }
@@ -808,6 +807,149 @@ a {
     color: #040404;
 }
 
+
+
+
+
+/*
+-----------register page------------
+*/
+
+
+a {
+    text-decoration: none;
+    color: #4287b5;
+}
+
+.register-container {
+    display: flex; /* 使用 flexbox 布局 */
+    flex-direction: column; /* 垂直对齐项目 */
+    justify-content: center; /* 垂直居中 */
+    max-width: 1200px; /* 可选：设置最大宽度 */
+    margin: 0 auto; /* 居中容器 */
+}
+
+#registerForm {
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    padding: 20px; /* 添加一些内边距 */
+    margin-left: 10px; /* 左侧留出空间 */
+    margin-right: 100px; /* 右侧留出空间 */
+}
+
+#registerForm label {
+    display: inline-block; /* 使标签占据完整宽度 */
+    width: 120px; /* 设置标签的固定宽度以对齐输入框 */
+    margin-bottom: 5px; /* 标签与输入框之间的空间 */
+    color: #ffffff; /* 标签文本颜色 */
+}
+
+#registerForm input {
+    width: calc(100% - 130px); /* 输入框的宽度为100%减去标签宽度 */
+    max-width: 350px; /* 最大宽度 */
+    padding: 10px; /* 输入框内部的填充 */
+    margin: 10px 0; /* 输入框之间的间距 */
+    border: none; /* 移除边框 */
+    border-bottom: 1px solid #ffffff; /* 默认显示底部边框 */
+    outline: none; /* 移除轮廓 */
+    background-color: transparent; /* 透明背景 */
+}
+
+#registerForm input:focus {
+    outline: #4287b5; /* 聚焦时的轮廓颜色 */
+    border-color: #4287b5; /* 聚焦时更改边框颜色 */
+}
+
+#registerForm button {
+    font-size: 1em; /* 按钮字体大小 */
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    background-color: transparent; /* 按钮背景颜色 */
+    color: #4287b5; /* 按钮文本颜色 */
+    border: none; /* 移除边框 */
+    padding: 10px; /* 按钮内边距 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+}
+
+#registerForm button:hover {
+    color: #ffffff; /* 悬停时改变文本颜色 */
+}
+
+#username {
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    color: #040404; /* 输入框的文本颜色 */
+}
+
+
+
+
+
+/*
+---------profile page---------
+*/
+
+
+a {
+    text-decoration: none;
+    color: #4287b5;
+}
+
+.login-container {
+    display: flex; /* 使用 Flexbox 布局 */
+    flex-direction: column; /* 垂直对齐项目 */
+    justify-content: center; /* 垂直居中 */
+    max-width: 1200px; /* 可选：设置最大宽度 */
+    margin: 0 auto; /* 居中容器 */
+}
+
+#profileForm {
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    padding: 20px; /* 添加内边距 */
+    margin-left: 10px; /* 左侧留出空间 */
+    margin-right: 100px; /* 右侧留出空间 */
+}
+
+#profileForm label {
+    display: inline-block; /* 使标签占据完整宽度 */
+    width: 120px; /* 设置标签的固定宽度以对齐输入框 */
+    margin-bottom: 5px; /* 标签与输入框之间的空间 */
+    color: #ffffff; /* 标签文本颜色 */
+}
+
+#profileForm input {
+    width: calc(100% - 130px); /* 输入框的宽度为100%减去标签宽度 */
+    max-width: 350px; /* 最大宽度 */
+    padding: 10px; /* 输入框内部的填充 */
+    margin: 10px 0; /* 输入框之间的间距 */
+    border: none; /* 移除边框 */
+    border-bottom: 1px solid #ffffff; /* 默认显示底部边框 */
+    outline: none; /* 移除轮廓 */
+    background-color: transparent; /* 透明背景 */
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+}
+
+#profileForm input:focus {
+    outline: #4287b5; /* 聚焦时的轮廓颜色 */
+    border-color: #4287b5; /* 聚焦时更改边框颜色 */
+}
+
+#profileForm button {
+    font-size: 1em; /* 按钮字体大小 */
+    font-family: "ivysoft-variable", sans-serif;
+    font-variation-settings: "slnt" -6, "wght" 700;
+    background-color: transparent; /* 按钮背景颜色 */
+    color: #4287b5; /* 按钮文本颜色 */
+    border: none; /* 移除边框 */
+    padding: 10px; /* 按钮内边距 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+}
+
+#profileForm button:hover {
+    color: #ffffff; /* 悬停时改变文本颜色 */
+}
 
 
 

@@ -191,19 +191,21 @@ if (!fs.existsSync(dbFile)) {
 
       db.run(
         `CREATE TABLE IF NOT EXISTS users (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          username TEXT NOT NULL UNIQUE,
-          password TEXT NOT NULL,
-          created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL UNIQUE,
+            email TEXT NOT NULL UNIQUE,
+            password TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`,
         (err) => {
-          if (err) {
-            console.error(err.message);
-          } else {
-            console.log('Table "users" created.');
-          }
+            if (err) {
+                console.error(err.message);
+            } else {
+                console.log('Table "users" created.');
+            }
         }
-      );
+    );
+    
       
     }
   });
@@ -214,6 +216,23 @@ if (!fs.existsSync(dbFile)) {
       console.error(err.message);
     }
     console.log("Connected to the existing database.");
+
+
+    db.run(
+      `ALTER TABLE users ADD COLUMN email TEXT NOT NULL UNIQUE`,
+      (err) => {
+          if (err) {
+              if (err.message.includes("duplicate column name")) {
+                  console.log('Email column already exists in "users" table.');
+              } else {
+                  console.error('Error adding email column:', err);
+              }
+          } else {
+              console.log('Column "email" added to "users" table.');
+          }
+      }
+  );
+
   });
 }
 
@@ -622,6 +641,7 @@ app.use(
 //------------
 // MIDDLEWARES
 //------------
+
 
 app.use((req, res, next) => {
   res.locals.isLoggedIn = req.session.isLoggedIn || false;
@@ -1088,16 +1108,16 @@ app.post("/login", (req, res) => {
   // 查询用户的哈希密码
   db.get('SELECT password FROM users WHERE username = ?', [username], (err, row) => {
       if (err) {
-          console.error("查询用户时发生错误:", err);
-          return res.status(500).send('查询失败');
+          console.error("An error occurred while querying the user:", err);
+          return res.status(500).send('Query failed');
       }
 
       if (row) {
           // 用户存在，比较密码
           bcrypt.compare(password, row.password, (err, isMatch) => {
               if (err) {
-                  console.error("密码比较时发生错误:", err);
-                  return res.status(500).send('密码比较时发生错误');
+                  console.error("An error occurred while comparing password:", err);
+                  return res.status(500).send('An error occurred while comparing password');
               }
               if (isMatch) {
                   // 密码匹配
@@ -1107,29 +1127,17 @@ app.post("/login", (req, res) => {
                   res.redirect("/"); // 登录成功后重定向
               } else {
                   // 密码不匹配
-                  req.session.errorMessage = "用户名或密码错误";
+                  req.session.errorMessage = "The password is not correct";
                   res.redirect("/login"); // 重定向回登录页面
               }
           });
       } else {
           // 用户不存在
-          req.session.errorMessage = "用户名或密码错误";
+          req.session.errorMessage = "This account does not exist";
           res.redirect("/login"); // 重定向回登录页面
       }
   });
 });
-
-/* 如果post有用则不保留get功能来登出
-app.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error logging out:", err);
-    } else {
-      res.redirect("/");
-    }
-  });
-});
-*/
 
 app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
@@ -1140,36 +1148,50 @@ app.post("/logout", (req, res) => {
   });
 });
 
-
 // 显示注册页面
 app.get("/register", (req, res) => {
-  res.render("register.handlebars"); // 创建 register.handlebars 模板
+  const errorMessage = req.query.error || ''; // 获取查询参数中的错误信息
+  res.render("register.handlebars", { errorMessage }); // 将错误信息传递到模板
 });
 
-// 处理注册请求
 app.post("/register", (req, res) => {
-  const { username, password } = req.body; // 从请求中获取用户名和密码
+  const { username, email, password } = req.body; // 获取用户名、邮箱和密码
   const hashedPassword = bcrypt.hashSync(password, saltRounds); // 哈希密码
 
-  db.run(
-      'INSERT INTO users (username, password) VALUES (?, ?)',
-      [username, hashedPassword],
-      function(err) {
-          if (err) {
-              return res.status(400).send('注册失败，用户名可能已存在'); // 处理错误
-          }
-          res.redirect('/login'); // 注册成功后重定向到登录页面
-      }
-  );
-});
+  // 邮箱格式验证
+  const emailPattern = /\S+@\S+\.\S+/; // 简单的邮箱格式正则表达式
+  if (!emailPattern.test(email)) {
+      const errorMessage = 'Invalid email format'; // 邮箱格式错误的提示
+      return res.redirect(`/register?error=${encodeURIComponent(errorMessage)}`);
+  }
 
-app.get("/users", (req, res) => {
-  const query = "SELECT id, username, created_at FROM users"; // 查询用户
-  db.all(query, [], (err, rows) => {
+  // 查询数据库，检查用户名和邮箱是否已存在
+  db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email], (err, row) => {
       if (err) {
-          return res.status(500).send("Error retrieving users data.");
+          console.error('Database query error:', err); // 输出详细的错误信息
+          const errorMessage = 'Database error, please try again later.';
+          return res.redirect(`/register?error=${encodeURIComponent(errorMessage)}`);
       }
-      res.render("users.handlebars", { users: rows }); // 创建 users.handlebars 模板
+
+      // 如果 row 不为空，表示用户名或邮箱已存在
+      if (row) {
+          const errorMessage = 'Username or email already exists'; // 用户名或邮箱已存在的错误信息
+          return res.redirect(`/register?error=${encodeURIComponent(errorMessage)}`);
+      }
+
+      // 用户名和邮箱都不重复，插入新用户
+      db.run(
+          'INSERT INTO users (username, email, password) VALUES (?, ?, ?)', 
+          [username, email, hashedPassword],
+          function(err) {
+              if (err) {
+                  console.error('Insert error:', err); // 输出插入错误的详细信息
+                  const errorMessage = 'Registration failed, please try again'; // 其他错误信息
+                  return res.redirect(`/register?error=${encodeURIComponent(errorMessage)}`);
+              }
+              res.redirect('/login'); 
+          }
+      );
   });
 });
 
@@ -1189,31 +1211,51 @@ app.get("/profile", (req, res) => {
   });
 });
 
-app.post("/profile/update", (req, res) => {
-  const { username, password } = req.body; // 获取新的用户名和密码
-  const currentUsername = req.session.name; // 获取当前用户的用户名
-  let query = 'UPDATE users SET username = ?';
 
-  // 如果提供了新密码，则进行哈希处理
+app.post("/profile/update", (req, res) => {
+  const { newUsername, password } = req.body; // 获取新的用户名和密码
+  const currentUsername = req.session.name; // 获取当前用户的用户名
+
+  // 检查是否有新用户名或新密码
+  if (!newUsername && !password) {
+      return res.status(400).send('请提供新的用户名或密码'); // 如果两者都为空，返回错误
+  }
+
+  // 初始化更新查询和参数
+  let query = 'UPDATE users SET';
+  const params = [];
+
+  // 添加新的用户名到查询和参数
+  if (newUsername) {
+      query += ' username = ?';
+      params.push(newUsername);
+  }
+
+  // 添加新的密码到查询和参数
   if (password) {
       const hashedPassword = bcrypt.hashSync(password, saltRounds); // 哈希密码
-      query += ', password = ?';
-      db.run(query + ' WHERE username = ?', [username, hashedPassword, currentUsername], (err) => {
-          if (err) {
-              return res.status(400).send('更新失败');
-          }
-          req.session.name = username; // 更新会话中的用户名
-          res.redirect("/profile"); // 更新成功后重定向回个人信息页面
-      });
-  } else {
-      db.run(query + ' WHERE username = ?', [username, currentUsername], (err) => {
-          if (err) {
-              return res.status(400).send('更新失败');
-          }
-          req.session.name = username; // 更新会话中的用户名
-          res.redirect("/profile"); // 更新成功后重定向回个人信息页面
-      });
+      if (params.length > 0) {
+          query += ','; // 如果已经有其他字段，需要添加逗号分隔
+      }
+      query += ' password = ?';
+      params.push(hashedPassword);
   }
+
+  query += ' WHERE username = ?'; // 添加条件
+  params.push(currentUsername); // 当前用户名
+
+  console.log('SQL Query:', query); // 输出 SQL 查询以便调试
+  console.log('Parameters:', params); // 输出参数以便调试
+
+  // 执行更新查询
+  db.run(query, params, function(err) {
+      if (err) {
+          console.error('Update error:', err); // 记录错误信息以便调试
+          return res.status(400).send('更新失败， 请重试。'); // 一般化错误消息
+      }
+      req.session.name = newUsername || currentUsername; // 更新会话中的用户名
+      res.redirect("/profile"); // 更新成功后重定向回个人信息页面
+  });
 });
 
 
@@ -1222,7 +1264,8 @@ app.post("/profile/delete", (req, res) => {
 
   db.run('DELETE FROM users WHERE username = ?', [currentUsername], (err) => {
       if (err) {
-          return res.status(400).send('删除失败');
+          console.error('删除失败:', err); // 记录错误信息以便调试
+          return res.status(400).send('删除失败，请重试。'); // 返回一般化的错误消息
       }
       req.session.destroy((err) => { // 注销会话
           if (err) {
@@ -1232,6 +1275,8 @@ app.post("/profile/delete", (req, res) => {
       });
   });
 });
+
+
 
 
 

@@ -1,11 +1,54 @@
-<h1>个人信息</h1>
+<div class="profile-container">
+  <h1>#Profile</h1>
+  <p>Here you can change your account information.</p>
 
-<form action="/profile/update" method="POST">
-    <input type="text" name="username" value="{{user.username}}" required>
-    <input type="password" name="password" placeholder="新密码（可选）">
-    <button type="submit">更新信息</button>
-</form>
+  <script>
+    // 如果有错误消息，则弹出提示框 const errorMessage = "{{errorMessage}}"; //
+    获取后端传递的错误信息 if (errorMessage) { alert(errorMessage); //
+    弹出提示框显示错误信息 }
+  </script>
 
-<form action="/profile/delete" method="POST" style="margin-top: 20px;">
-    <button type="submit" style="background-color: red; color: white;">删除账户</button>
-</form>
+  <!-- 更新信息表单 -->
+  <form id="profileForm" action="/profile/update" method="POST">
+    <label for="currentUsername">Username</label>
+    <input
+      type="text"
+      id="currentUsername"
+      name="currentUsername"
+      value="{{user.username}}"
+      readonly
+      required
+    /><br />
+    <!-- 只读输入框 -->
+
+    <label for="newUsername">New Username</label>
+    <input
+      type="text"
+      id="newUsername"
+      name="newUsername"
+      placeholder="Optional"
+    /><br />
+    <!-- 新用户名输入框 -->
+
+    <label for="password">New Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      placeholder="Optional"
+    /><br />
+
+    <button type="submit" id="button">Confirm to Update</button>
+  </form>
+
+  <!-- 删除账户表单 -->
+  <form
+    action="/profile/delete"
+    method="POST"
+    style="margin-top: 20px;"
+    onsubmit="return confirm('Are you sure to delete?');"
+  >
+    <button type="submit">Delete Account</button>
+  </form>
+
+</div>

@@ -35,7 +35,7 @@
       </div>
       <div class="nav-item">
         <a href="/contact" title="Contact">
-          <box-icon name="plus-medical"></box-icon>
+          <box-icon type="solid" name="message-square-detail"></box-icon>
           <span>Contact</span>
         </a>
       </div>
@@ -96,7 +96,7 @@
     {{#if isLoggedIn}}
         <a href="/profile" title="Profile" style="display: inline-block;">
             <box-icon name="ghost" type="solid"></box-icon>
-            <span>Hi, {{name}} - </span>
+            <span>Hi, {{name}} -<br/><br/><br/></span>
         </a>
         <a href="/logout" title="Log out" class="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <span>Log out</span>
@@ -111,19 +111,14 @@
 </div>
 
 
+
       <div class="nav-item">
         <a href="/register" title="Register">
-          <box-icon type="solid" name="user-plus"></box-icon>
+          <box-icon name="plus-medical"></box-icon>
           <span>Register</span>
         </a>
       </div>
 
-      <div class="nav-item">
-        <a href="/users" title="User List">
-          <box-icon type="solid" name="users"></box-icon>
-          <span>User List</span>
-        </a>
-      </div>
 
     </div>
   </div>
