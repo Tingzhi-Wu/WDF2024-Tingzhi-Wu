@@ -1,0 +1,11 @@
+<h1>个人信息</h1>
+
+<form action="/profile/update" method="POST">
+    <input type="text" name="username" value="{{user.username}}" required>
+    <input type="password" name="password" placeholder="新密码（可选）">
+    <button type="submit">更新信息</button>
+</form>
+
+<form action="/profile/delete" method="POST" style="margin-top: 20px;">
+    <button type="submit" style="background-color: red; color: white;">删除账户</button>
+</form>

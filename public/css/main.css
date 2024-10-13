@@ -76,7 +76,6 @@ ul {
     align-items: center; /* 居中对齐 */
 }
 
-/* Logo 样式 */
 
 .logo-image {
     width: 130px; /* 根据需要调整宽度 */
@@ -95,13 +94,15 @@ ul {
 .nav-item {
     position: relative;
     text-align: center;
+    display: flex; /* 确保使用 flex 布局 */
+    align-items: center; /* 垂直居中对齐 */
 }
 
 .nav-item a {
     text-decoration: none;
     font-size: 1.3em;
     display: flex;
-    flex-direction: column;
+   /* flex-direction: column; 删除无改变*/
     align-items: center;
 }
 

@@ -1,0 +1,22 @@
+<h1>用户列表</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>创建时间</th>
+        <th>操作</th>
+    </tr>
+    {{#each users}}
+    <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.username}}</td>
+        <td>{{this.created_at}}</td>
+        <td>
+            <a href="/users/{{this.id}}/edit">编辑</a>
+            <form action="/users/{{this.id}}/delete" method="POST" style="display:inline;">
+                <button type="submit">删除</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>
