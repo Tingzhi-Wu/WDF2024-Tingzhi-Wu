@@ -1,37 +1,20 @@
 <h1>#Recently Events</h1>
-<p>Here you can check recently events especially the concerts worldwide.<br/>2024 is the memorable year as TXT's music map is going wider and wider.</p>
-
-<!--
-<div class="events-list">
-  {{#each events}}
-    <div class="event-item">
-      <div class="event-date">{{this.concert_date}}</div>
-      <div class="event-location">
-        <span class="event-city">{{this.country}}</span>
-        <span class="event-venue">{{this.place}}</span>
-      </div>
-    </div>
-  {{/each}}
-</div>
--->
-
 
 <div class="events-list">
   {{#each events}}
-    <div class="event-item">
-      <div class="event-date">
+    <div class="events-item">
+      <div class="events-date">
         {{#each (split this.concert_date " ")}} <!-- 使用 split 助手函数 -->
-          <div class="event-month-day">{{this}}</div>
+          <div class="events-month-day">{{this}}</div>
         {{/each}}
       </div>
-      <div class="event-location">
-        <span class="event-city">{{this.country}}</span>
-        <span class="event-venue">{{this.place}}</span>
+      <div class="events-location">
+        <span class="events-city">{{this.country}}</span>
+        <span class="events-venue">{{this.place}}</span>
       </div>
     </div>
   {{/each}}
 </div>
-
 
 
 <!-- 仅在最后一页时显示 -->

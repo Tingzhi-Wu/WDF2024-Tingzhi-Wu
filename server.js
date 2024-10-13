@@ -429,37 +429,37 @@ const outfits = [
     id: 1,
     item_type: "Shirt", // Type of content, e.g., tops
     brand: "MADEWORN",
-    image: "img/outfit1.jpg", // 图片的路径
+    image: "img/outfit1.png", // 图片的路径
   },
   {
     id: 2,
     item_type: "Necklace", // Type of content, e.g., bottoms
     brand: "WILD BRICKS",
-    image: "img/outfit2.jpg", // 图片的路径
+    image: "img/outfit2.png", // 图片的路径
   },
   {
     id: 3,
-    item_type: "Earphone", // Type of content, e.g., accessories
+    item_type: "Headphones", // Type of content, e.g., accessories
     brand: "Marshall",
-    image: "img/outfit3.jpg", // 图片的路径
+    image: "img/outfit3.png", // 图片的路径
   },
   {
     id: 4,
     item_type: "Shirt", // Type of content, e.g., accessories
-    brand: "RIVINGTON ROI ROBIS",
-    image: "img/outfit4.jpg", // 图片的路径
+    brand: "RIVINGTON ROI REBIS",
+    image: "img/outfit4.png", // 图片的路径
   },
   {
     id: 5,
     item_type: "Shirt", // Type of content, e.g., accessories
     brand: "HUMAN MADE",
-    image: "img/outfit5.jpg", // 图片的路径
+    image: "img/outfit5.png", // 图片的路径
   },
   {
     id: 6,
     item_type: "Shoes", // Type of content, e.g., accessories
     brand: "Nike & New Balance",
-    image: "img/outfit6.jpg", // 图片的路径
+    image: "img/outfit6.png", // 图片的路径
   },
 ];
 
