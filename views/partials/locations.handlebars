@@ -12,26 +12,15 @@
 </div>
 
 
-<!--  &#x279C;  -->
-
-<!-- Pagination Controls for Locations -->
+<!-- pagination control -->
 <ul class="pagination">
-  {{#if (gt totalLocationsPages 1)}}
-    {{#if (gt locationsCurrentPage 1)}}
+  {{#if (gt totalLocationsPages 1)}} <!-- check if there is more than 1 page -->
+    {{#if (gt locationsCurrentPage 1)}} <!-- check if the current page is greater than 1 -->
       <li><a
           href="?locationsPage={{decrement locationsCurrentPage}}&outfitsPage={{outfitsCurrentPage}}&foodsPage={{foodsCurrentPage}}"
         >Previous</a></li>
     {{/if}}
     
-    <!--
-    {{#each (range 1 totalLocationsPages)}}
-      <li>
-        <a href="?locationsPage={{this}}&outfitsPage={{outfitsCurrentPage}}&foodsPage={{foodsCurrentPage}}"
-           class="{{#if (eq this locationsCurrentPage)}}active{{/if}}">{{this}}</a>
-      </li>
-    {{/each}}
-    
-     生成页码链接 -->
 
     {{#if (lt locationsCurrentPage totalLocationsPages)}}
       <li><a

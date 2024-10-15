@@ -11,23 +11,14 @@
 </div>
 
 
-<!-- Pagination Controls for Foods -->
+<!-- pagination control -->
 <ul class="pagination">
-  {{#if (gt totalFoodsPages 1)}}
-    {{#if (gt foodsCurrentPage 1)}}
+  {{#if (gt totalFoodsPages 1)}} <!-- check if there is more than 1 page -->
+    {{#if (gt foodsCurrentPage 1)}} <!-- check if the current page is greater than 1 -->
       <li><a
           href="?foodsPage={{decrement foodsCurrentPage}}&locationsPage={{locationsCurrentPage}}&outfitsPage={{outfitsCurrentPage}}"
         >Previous</a></li>
     {{/if}}
-
-    <!-- 
-    {{#each (range 1 totalFoodsPages)}}
-      <li>
-        <a href="?foodsPage={{this}}&locationsPage={{locationsCurrentPage}}&outfitsPage={{outfitsCurrentPage}}"
-           class="{{#if (eq this foodsCurrentPage)}}active{{/if}}">{{this}}</a>
-      </li>
-    {{/each}}
-    生成页码链接 -->
 
     {{#if (lt foodsCurrentPage totalFoodsPages)}}
       <li><a

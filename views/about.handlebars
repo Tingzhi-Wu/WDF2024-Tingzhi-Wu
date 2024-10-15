@@ -2,14 +2,14 @@
 <P>Hi! Here are some info about the group</P>
 
 
-{{#each group}} <!-- 使用 each 遍历 group_info 数组 -->
+{{#each group}}
 <div class="group">
-  {{#if (eq this.id 1)}} <!-- 检查 id 是否为 1 -->
+  {{#if (eq this.id 1)}} <!-- check if id is 1, and only add img to 1 -->
     <img src="/img/group2.png" alt="Group Image {{this.id}}" class="group2-image" />
   {{/if}}
   <div class="group-description">
-    <h2>{{this.name}}</h2> <!-- 显示组合名称 -->
-    <h3>[ {{this.category}} ]</h3> <!-- 添加类别 -->
+    <h2>{{this.name}}</h2>
+    <h3>[ {{this.category}} ]
     <h3>{{this.date}}</h3>
     <p>{{{this.description}}}</p>
   </div>

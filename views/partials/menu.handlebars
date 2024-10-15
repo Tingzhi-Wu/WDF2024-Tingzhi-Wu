@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="container">
-    <a href="/" class="logo"><img src="/img/logo.png" class="logo-image" /></a>
+    <a href="/" class="logo"><img src="/img/logo.png" class="logo-image" /></a> <!-- redirects to the home page when click -->
 
     <div class="nav-links" id="nav-links">
       <div class="nav-item">
@@ -48,8 +48,8 @@
         </a>
       </div>
 
-      <div class="nav-item">
-        {{#if isLoggedIn}}
+      <div class="nav-item"> <!-- for profile or login -->
+        {{#if isLoggedIn}} <!-- check if is logged in, then link to the profile page -->
           <a href="/profile" title="Profile" style="display: inline-block;">
             <box-icon name="ghost" type="solid" color="#f4b2d7"></box-icon>
             <span>Hi, {{name}} -<br /><br /><br /></span>
@@ -66,7 +66,7 @@
             id="logout-form"
             action="/logout"
             method="POST"
-            style="display: none;"
+            style="display: none;" <!-- hide the form -->
           ></form>
         {{else}}
           <a href="/login" title="Login">

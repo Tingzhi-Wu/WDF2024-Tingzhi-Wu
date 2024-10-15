@@ -5,15 +5,14 @@
   {{#each events}}
     <div class="events-item">
       <div class="events-date">
-        {{#each (split this.concert_date " ")}}
-          <!-- 使用 split 助手函数 -->
+        {{#each (split this.concert_date " ")}} <!-- split the date into parts -->
           <div class="events-month-day">{{this}}</div>
         {{/each}}
       </div>
       <div class="events-location">
         <span class="events-city">{{this.country}}</span>
         <span class="events-venue">
-          <a href="/venues/{{this.id}}" style="text-decoration: none; color: inherit;">{{this.place}}</a>
+          <a href="/venues/{{this.id}}">{{this.place}}</a>
         </span> 
       </div>
     </div>
@@ -21,27 +20,27 @@
 </div>
 
 
-
+<!-- modal for displaying venue details -->
 <div id="event-details-modal" class="modal" style="display:none;">
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="close" onclick="closeModal()">&times;</span> <!-- close modal button -->
     <h2>Venue Details</h2>
-    <h5 id="event-address"></h5> <!-- 地址显示 -->
-    <h5 id="event-capacity"></h5> <!-- 可容纳人数 -->
-    <h5 id="event-open-hours"></h5> <!-- 开放时间 -->
+    <h5 id="event-address"></h5>
+    <h5 id="event-capacity"></h5>
+    <h5 id="event-open-hours"></h5>
   </div>
 </div>
 
 
-<!-- 仅在最后一页时显示 -->
-{{#if (eq currentPage totalPages)}}
+<!-- only show on the last page -->
+{{#if (eq currentPage totalPages)}} <!-- if the current page is the last page -->
   <p class="events-p">* MORE TO BE ANNOUNCED *</p>
 {{/if}}
 
-<!-- Pagination Controls -->
+<!-- pagination control -->
 <ul class="pagination">
-  {{#if (gt totalPages 1)}}
-    {{#if (gt currentPage 1)}}
+  {{#if (gt totalPages 1)}} <!-- check if there is more than 1 page -->
+    {{#if (gt currentPage 1)}} <!-- check if the current page is greater than 1 -->
       <li><a href="?page={{decrement currentPage}}">Previous</a></li>
     {{/if}}
     {{#each (range 1 totalPages)}}

@@ -4,11 +4,7 @@
 
 <div class="profile-container">
 
-  <script>
-    if (errorMessage) { alert(errorMessage); }
-  </script>
 
-  <!-- 更新信息表单 -->
   <form id="profileForm" action="/profile/update" method="POST">
     <label for="currentUsername">Username</label>
     <input
@@ -19,7 +15,7 @@
       readonly
       required
     /><br />
-    <!-- 只读输入框 -->
+
 
     <label for="newUsername">New Username</label>
     <input
@@ -28,7 +24,6 @@
       name="newUsername"
       placeholder="Optional"
     /><br />
-    <!-- 新用户名输入框 -->
 
     <label for="password">New Password</label>
     <input
@@ -41,7 +36,7 @@
     <button type="submit" id="button">Update Account</button>
 
 
-    <!-- 删除账户按钮 -->
+    <!-- delete account button -->
     <button 
       type="button" 
       id="deleteButton" 
@@ -50,9 +45,14 @@
     </button>
   </form>
 
-  <!-- 隐藏删除账户表单 -->
+  <!-- hide the form -->
   <form id="deleteForm" action="/profile/delete" method="POST"></form>
 
   </form>
 
 </div>
+
+
+  <script>
+    if (errorMessage) { alert(errorMessage); }
+  </script>

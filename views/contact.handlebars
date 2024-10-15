@@ -2,47 +2,53 @@
 <p>Feel free to reach out to me.</p>
 
 <div class="contact-container">
-    <section class="contact-info">
-        <div class="contact-details">
-            <h2>Email</h2>
-            <p><a href="mailto:youremail@example.com">wuti23rw@student.ju.se</a></p>
+  <section class="contact-info">
+    <div class="contact-details">
+      <h2>Email</h2>
+      <p><a href="mailto:youremail@example.com">wuti23rw@student.ju.se</a></p>
 
-            <h2>Social Network</h2>
-            <ul>
-                <li><a href="https://www.instagram.com/rttato26/?igsh=NDljN2E0cTd2czJ4" target="_blank">Instagram</a></li>
-            </ul>
+      <h2>Social Network</h2>
+      <ul>
+        <li><a
+            href="https://www.instagram.com/rttato26/?igsh=NDljN2E0cTd2czJ4"
+            target="_blank"
+          >Instagram</a></li>
+      </ul>
 
-            <h2>Address</h2>
-            <p class="address">15 Tallortsbacken<br>
-            Jonkoping, Sweden, 55458</p>
-        </div>
-    </section>
+      <h2>Address</h2>
+      <p class="address">15 Tallortsbacken<br />
+        Jonkoping, Sweden, 55458</p>
+    </div>
+  </section>
 
-    <section class="contact-form">
-        <h2>Get in Touch</h2>
-        <form action="/submit-contact" method="POST">
-            <div>
-                <label for="name" class="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
+  <section class="contact-form">
+    <h2>Get in Touch</h2>
+    <form action="/submit-contact" method="POST">
+      <div>
+        <label for="name" class="name">Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
 
-            <div>
-                <label for="email" class="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+      <div>
+        <label for="email" class="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
 
-            <div>
-                <label for="message" class="message">Message</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
+      <div>
+        <label for="message" class="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+      </div>
 
-            <button type="submit">Send</button>
-        </form>
-    </section>
+      <button type="submit">Send</button>
+    </form>
+  </section>
 </div>
 
-    {{#if success}}
-        <div class="success">
-            {{success}}
-        </div>
-    {{/if}}
+
+
+{{#if success}}
+  <!-- check if there is a success message -->
+  <div class="success">
+    {{success}}
+  </div>
+{{/if}}

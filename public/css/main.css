@@ -216,7 +216,7 @@ ul {
 
 
 
-/* group part*/
+/* group section*/
 .group {
   display: flex;
   flex-direction: column;
@@ -264,7 +264,7 @@ ul {
 }
 
 
-/* member part */
+/* member section */
 
 /* code borrowed from a website - begin */
 /* source:(Chen, 2022, "Mouse hover direction sensing card", https://goatchen.coding.net/public/html-css/HTML-CSS/git/files) */
@@ -517,7 +517,7 @@ ul {
 }
 
 /*
----------location part---------
+---------location section---------
 */
 
 .locations-item {
@@ -572,7 +572,7 @@ ul {
 }
 
 /*
----------outfits part---------
+---------outfits section---------
 */
 
 .outfits-item {
@@ -614,7 +614,7 @@ ul {
 }
 
 /*
----------food part---------
+---------food section---------
 */
 
 .foods-list {
@@ -746,6 +746,11 @@ ul {
   color: #7ec3f2;
 }
 
+.events-venue a{
+  text-decoration: none;
+  color: inherit;
+}
+
 /* more tbc text */
 .events-p {
   color: #626262;
@@ -796,6 +801,7 @@ ul {
   color: #ffffff;
 }
 
+/* email, social network and address title*/
 .contact-container h2 {
   color: #f4b2d7;
 }
@@ -816,7 +822,7 @@ ul {
   margin-left: 20px;
 }
 
-
+/* get in touch form */
 .contact-form {
   max-width: 400px;
   flex: 1; /* take half of the container */
@@ -890,6 +896,7 @@ ul {
 ------login page------
 */
 
+/* the error/success message style */
 .error,
 .success {
   color: #626262;
@@ -1109,6 +1116,7 @@ footer {
   background-color: #bee5ffa5;
 }
 
+/* all rights reserved */
 .footer-container p {
   color: #ffffff;
   font-size: 0.6em;
