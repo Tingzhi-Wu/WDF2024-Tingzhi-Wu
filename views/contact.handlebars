@@ -1,16 +1,15 @@
-<h1>#Contact Me</h1>
+<h1><span class="hashtag"># </span>Contact Me</h1>
 <p>Feel free to reach out to me.</p>
 
-<div class="contact-container"> <!-- New container for flex layout -->
+<div class="contact-container">
     <section class="contact-info">
         <div class="contact-details">
             <h2>Email</h2>
             <p><a href="mailto:youremail@example.com">wuti23rw@student.ju.se</a></p>
 
-            <h2>Social Networks</h2>
+            <h2>Social Network</h2>
             <ul>
-                <li><a href="#" target="_blank">Instagram</a></li>
-                <li><a href="#" target="_blank">Facebook</a></li>
+                <li><a href="https://www.instagram.com/rttato26/?igsh=NDljN2E0cTd2czJ4" target="_blank">Instagram</a></li>
             </ul>
 
             <h2>Address</h2>
@@ -41,3 +40,9 @@
         </form>
     </section>
 </div>
+
+    {{#if success}}
+        <div class="success">
+            {{success}}
+        </div>
+    {{/if}}

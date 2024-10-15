@@ -1,11 +1,11 @@
+<h1><span class="hashtag"># </span>Profile</h1>
+<p>Here you can change your account information or delete the account</p>
+
+
 <div class="profile-container">
-  <h1>#Profile</h1>
-  <p>Here you can change your account information.</p>
 
   <script>
-    // 如果有错误消息，则弹出提示框 const errorMessage = "{{errorMessage}}"; //
-    获取后端传递的错误信息 if (errorMessage) { alert(errorMessage); //
-    弹出提示框显示错误信息 }
+    if (errorMessage) { alert(errorMessage); }
   </script>
 
   <!-- 更新信息表单 -->
@@ -38,17 +38,21 @@
       placeholder="Optional"
     /><br />
 
-    <button type="submit" id="button">Confirm to Update</button>
+    <button type="submit" id="button">Update Account</button>
+
+
+    <!-- 删除账户按钮 -->
+    <button 
+      type="button" 
+      id="deleteButton" 
+      onclick="if(confirm('Are you sure to delete?')) { document.getElementById('deleteForm').submit(); }">
+      Delete Account
+    </button>
   </form>
 
-  <!-- 删除账户表单 -->
-  <form
-    action="/profile/delete"
-    method="POST"
-    style="margin-top: 20px;"
-    onsubmit="return confirm('Are you sure to delete?');"
-  >
-    <button type="submit">Delete Account</button>
+  <!-- 隐藏删除账户表单 -->
+  <form id="deleteForm" action="/profile/delete" method="POST"></form>
+
   </form>
 
 </div>

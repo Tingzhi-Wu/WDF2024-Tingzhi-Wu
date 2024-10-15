@@ -1,4 +1,5 @@
-<h1>#About Group</h1>
+<h1><span class="hashtag"># </span>About Group</h1>
+<P>Hi! Here are some info about the group</P>
 
 
 {{#each group}} <!-- 使用 each 遍历 group_info 数组 -->
@@ -8,8 +9,8 @@
   {{/if}}
   <div class="group-description">
     <h2>{{this.name}}</h2> <!-- 显示组合名称 -->
-    <p>[ {{this.category}} ]</p> <!-- 添加类别 -->
-    <p>{{this.date}}</p>
+    <h3>[ {{this.category}} ]</h3> <!-- 添加类别 -->
+    <h3>{{this.date}}</h3>
     <p>{{{this.description}}}</p>
   </div>
 </div>
@@ -18,6 +19,7 @@
 
 
 <h1>#About Members</h1>
+<p>Members' personal introduction</p>
 <div class="shell">
   {{#each members}}
     <div class="box">
@@ -29,17 +31,12 @@
       </div>
       <div class="content">
         <p>
-          Birthday:
-          {{this.birthday}}<br />
-          MBTI:
-          {{this.mbti}}<br />
-          Zodiac Sign:
-          {{this.zodiac_sign}}<br />
-          Blood Type:
-          {{this.blood_type}}
+          <span class="member-title">Birthday:</span> {{this.birthday}}<br />
+          <span class="member-title">MBTI:</span> {{this.mbti}}<br />
+          <span class="member-title">Zodiac Sign:</span> {{this.zodiac_sign}}<br />
+          <span class="member-title">Blood Type:</span> {{this.blood_type}}
         </p>
       </div>
     </div>
-
   {{/each}}
 </div>

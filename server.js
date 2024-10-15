@@ -190,6 +190,27 @@ if (!fs.existsSync(dbFile)) {
       );
 
       db.run(
+        `CREATE TABLE IF NOT EXISTS venues (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          event_id INTEGER NOT NULL,
+          address TEXT NOT NULL,
+          capacity INTEGER NOT NULL,
+          open_hours TEXT,
+          FOREIGN KEY (event_id) REFERENCES events(id)
+        )`,
+        (err) => {
+          if (err) {
+            console.error("Error creating venues table:", err.message);
+          } else {
+            console.log('Table "venues" created.');
+            initializeVenuesData(); // 表创建后插入数据
+          }
+        }
+      );
+      
+
+
+      db.run(
         `CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
@@ -622,6 +643,94 @@ const events = [
 ];
 
 
+// models for venues
+const venues = [
+  {
+    id: 1,
+    event_id: 1,
+    address: "New York, NY 10001, United States",
+    capacity: "19500",
+    open_hours: "9:00-18:00",
+  },
+  {
+    id: 2,
+    event_id: 2,
+    address: "601 F St NW, Washington, DC 20004, United States",
+    capacity: "20356",
+    open_hours: "12:00-16:00",
+  },
+  {
+    id: 3,
+    event_id: 3,
+    address: "1-chōme-3-61 Kōraku, Bunkyo City, Tokyo 112-0004, Japan",
+    capacity: "55000",
+    open_hours: "10:00-21:00",
+  },
+  {
+    id: 4,
+    event_id: 4,
+    address: "1-chōme-1-1 Daikōminami, Higashi Ward, Nagoya, Aichi 461-0047, Japan",
+    capacity: "50619",
+    open_hours: "Hours of operation may vary by each event",
+  },
+  {
+    id: 5,
+    event_id: 5,
+    address: "Galaxy Macau Integrated Resort, Macao",
+    capacity: "16000",
+    open_hours: "10:00-23:00",
+  },
+  {
+    id: 6,
+    event_id: 6,
+    address: "2 Stadium Walk, Singapore 397691",
+    capacity: "12000",
+    open_hours: "9:00-18:00",
+  },
+  {
+    id: 7,
+    event_id: 7,
+    address: "2-chōme-2-2 Jigyōhama, Chuo Ward, Fukuoka, 810-8660, Japan",
+    capacity: "47500",
+    open_hours: "Varies by Event and Game Date",
+  },
+  {
+    id: 8,
+    event_id: 8,
+    address: "Kec. Pagedangan, Kabupaten Tangerang, Banten 15339, Indonesia",
+    capacity: "50000",
+    open_hours: "8:30-17:30",
+  },
+  {
+    id: 9,
+    event_id: 9,
+    address: "No. 250, Wenhua 1st Rd, Guishan District, Taoyuan City, Taiwan 333",
+    capacity: "15000",
+    open_hours: "8:00-20:30",
+  },
+  {
+    id: 10,
+    event_id: 10,
+    address: "424 Olympic-ro, Songpa District, Seoul, South Korea",
+    capacity: "15000",
+    open_hours: "9:00-22:00",
+  },
+  {
+    id: 11,
+    event_id: 11,
+    address: "3-chōme-2-1 Chiyozaki, Nishi Ward, Osaka, 550-0023, Japan",
+    capacity: "36220",
+    open_hours: "11:00-18:00",
+  },
+  {
+    id: 12,
+    event_id: 12,
+    address: "3-chōme-2-1 Chiyozaki, Nishi Ward, Osaka, 550-0023, Japan",
+    capacity: "36220",
+    open_hours: "11:00-18:00",
+  },
+]
+
 
 //---------
 // SESSIONS
@@ -795,7 +904,7 @@ app.get("/imprints", (req, res) => {
 
       db.get(foodsCountQuery, (err, foodsCountResult) => {
         const totalFoodsPages = Math.ceil(
-          foodsCountResult.count / itemsPerPage //有报错 有可能是导致无法关联外键的原因
+          foodsCountResult.count / itemsPerPage
         );
 
         db.all(
@@ -853,7 +962,7 @@ app.get("/locations", (req, res) => {
   const itemsPerPage = 3;
   const offset = (locationsPage - 1) * itemsPerPage;
 
-  const query = "SELECT * FROM locations LIMIT ? OFFSET ?";
+  const query = "SELECT * FROM locations ORDER BY id LIMIT ? OFFSET ?";
   const countQuery = "SELECT COUNT(*) AS count FROM locations";
 
   db.get(countQuery, (err, result) => {
@@ -881,24 +990,10 @@ app.get("/locations", (req, res) => {
   });
 });
 
-/*
-app.get("/outfits", (req, res) => {
-  const query = "SELECT * FROM outfits"; // 查询 outfits 表的所有数据
-  db.all(query, [], (err, rows) => {
-    // 运行 SQL 查询
-    if (err) {
-      console.error("Error retrieving outfits:", err.message);
-      res.status(500).send("Error retrieving outfits.");
-    } else {
-      console.log(rows); // 调试时检查是否获取到了正确的数据
-      res.render("outfits", { outfits: rows }); // 渲染模板并传递数据
-    }
-  });
-});
-*/
+
 
 // 修改后的 foods 查询
-const query = "SELECT id, name, brand, price FROM foods LIMIT ? OFFSET ?";
+const query = "SELECT id, name, brand, price FROM foods ORDER BY id LIMIT ? OFFSET ?";
 const countQuery = "SELECT COUNT(*) AS count FROM foods"; // 这个仍然保留
 
 
@@ -910,7 +1005,7 @@ app.get("/outfits", (req, res) => {
   const itemsPerPage = 3;
   const offset = (outfitsPage - 1) * itemsPerPage;
 
-  const query = "SELECT * FROM outfits LIMIT ? OFFSET ?";
+  const query = "SELECT * FROM outfits ORDER BY id LIMIT ? OFFSET ?";
   const countQuery = "SELECT COUNT(*) AS count FROM outfits";
 
   db.get(countQuery, (err, result) => {
@@ -945,15 +1040,6 @@ app.get("/foods", (req, res) => {
 
   const itemsPerPage = 3;
   const offset = (foodsPage - 1) * itemsPerPage;
-
-  // 使用 INNER JOIN 获取推荐者的名字
-  //const query = `
-    //SELECT foods.id, foods.name, foods.brand, foods.price, members.name AS recommended_by
-    //FROM foods
-    //INNER JOIN members ON foods.recommended_by = members.id
-    //LIMIT ? OFFSET ?`;
-
-  //const countQuery = "SELECT COUNT(*) AS count FROM foods";
 
   db.get(countQuery, (err, result) => {
     if (err) {
@@ -996,22 +1082,59 @@ app.get("/events", (req, res) => {
     const totalEvents = result.count;
     const totalPages = Math.ceil(totalEvents / itemsPerPage); // 计算总页数
 
-    // 查询当前页的 events 数据
-    const query = `SELECT * FROM events LIMIT ? OFFSET ?`;
-    db.all(query, [itemsPerPage, offset], (err, rows) => {
+    // 查询当前页的 events 数据，按 ID 排序
+    const query = `SELECT * FROM events ORDER BY id LIMIT ? OFFSET ?`;
+    db.all(query, [itemsPerPage, offset], (err, events) => {
       if (err) {
         return res.status(500).send("Error retrieving events.");
       }
 
-      // 渲染页面并传递分页和事件数据
-      res.render("events", {
-        events: rows, // 当前页的 events 数据
-        currentPage: page, // 当前页码
-        totalPages: totalPages, // 总页数
-      });
+      const eventsWithVenues = [];
+
+      // 使用 for 循环逐个获取场馆信息
+      const getVenueInfo = async () => {
+        for (const event of events) {
+          try {
+            const venue = await getVenueDetails(event.id);
+            eventsWithVenues.push({ ...event, venue }); // 合并事件和场馆信息
+          } catch (error) {
+            console.error("Error fetching venue details:", error);
+          }
+        }
+
+        // 渲染页面并传递分页和事件数据
+        res.render("events", {
+          events: eventsWithVenues, // 当前页的事件和场馆数据
+          currentPage: page, // 当前页码
+          totalPages: totalPages, // 总页数
+        });
+      };
+
+      // 调用获取场馆信息的函数
+      getVenueInfo();
     });
   });
 });
+
+
+app.get("/venues/:id", function (req, res) {
+  const venueId = parseInt(req.params.id); // 提取场馆 ID，确保是整数
+  console.log("Venue route parameter id: " + JSON.stringify(venueId)); // 打印场馆 ID 以供调试
+
+  // 查询数据库获取场馆详细信息，按 ID 排序
+  db.get("SELECT * FROM venues WHERE id = ? ORDER BY id", [venueId], (error, venueDetails) => {
+    if (error) {
+      console.log("ERROR: ", error); // 错误：在终端显示
+      return res.status(500).send("Error retrieving venue details.");
+    } else {
+      const model = {
+        venue: venueDetails // 将场馆信息传递给模板
+      };
+      res.render("venues", model); // 渲染场馆信息页面
+    }
+  });
+});
+
 
 app.get("/contact", (req, res) => {
   res.render("contact.handlebars");
@@ -1020,9 +1143,10 @@ app.get("/contact", (req, res) => {
 app.post("/submit-contact", (req, res) => {
   const { name, email, message } = req.body;
   console.log(`Contact Form Submission: ${name}, ${email}, ${message}`);
-  //req.session.successMessage = "Your message has been sent successfully!";
-  res.redirect("/"); // Redirect back to the home page or thank you page
+  req.session.successMessage = "Your message has been sent successfully!";
+  res.render("contact.handlebars", { success: req.session.successMessage });
 });
+
 
 app.get("/login", (req, res) => {
   const successMessage = req.session.successMessage; // 获取成功消息
@@ -1032,80 +1156,10 @@ app.get("/login", (req, res) => {
   res.render("login.handlebars", { success: successMessage, error: errorMessage });
 });
 
-/*
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  let model = {};
-
-  //console.log("The login is the admin one!");
-
-
-    if (password === theAdminPassword) {
-      console.log("The password is the admin one!");
-
-      // SESSIONS
-      req.session.isAdmin = true;
-      req.session.isLoggedIn = true;
-      req.session.name = username;
-
-      const successMessage = "Log in successfully. Welcome back!";
-      model.success = successMessage;
-
-      res.render("login.handlebars", model);
-    } else {
-      const errorMessage = "The password is NOT the admin one!";
-      model.error = errorMessage;
-      res.render("login.handlebars", model);
-    }
-  } else {
-    const errorMessage = "This account doesn't exist!";
-    model.error = errorMessage;
-    res.render("login.handlebars", model);
-
-
-
-
-  if (username === theAdminLogin) {
-    bcrypt.compare(password, theAdminPassword, (err, isMatch) => {
-      if (err) {
-        console.error("Error comparing password:", err);
-        model.error = "An error occurred during login.";
-        res.render("login.handlebars", model);
-      } else if (isMatch) {
-        //console.log('the password is the admin one'); //worked well
-
-        req.session.isAdmin = true;
-        req.session.isLoggedIn = true;
-        req.session.name = username;
-
-        res.redirect("/");
-
-        //console.log("Session information: "+JSON.stringify(req.session));
-
-        //model.success = "Log in successfully. Welcome back!";
-        //res.render("login.handlebars", model);
-      } else {
-        model.error = "The password is incorrect!";
-        res.render("login.handlebars", model);
-      }
-    });
-  } else {
-    model.error = "This account doesn't exist!";
-    res.render("login.handlebars", model);
-  }
-});
-
-*/
-
-
-
-app.post("/login", (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-
-  // 查询用户的哈希密码
   db.get('SELECT password FROM users WHERE username = ?', [username], (err, row) => {
       if (err) {
           console.error("An error occurred while querying the user:", err);
@@ -1113,28 +1167,24 @@ app.post("/login", (req, res) => {
       }
 
       if (row) {
-          // 用户存在，比较密码
           bcrypt.compare(password, row.password, (err, isMatch) => {
               if (err) {
                   console.error("An error occurred while comparing password:", err);
                   return res.status(500).send('An error occurred while comparing password');
               }
               if (isMatch) {
-                  // 密码匹配
                   req.session.isLoggedIn = true;
                   req.session.name = username;
 
-                  res.redirect("/"); // 登录成功后重定向
+                  res.redirect("/");
               } else {
-                  // 密码不匹配
                   req.session.errorMessage = "The password is not correct";
-                  res.redirect("/login"); // 重定向回登录页面
+                  res.redirect("/login");
               }
           });
       } else {
-          // 用户不存在
           req.session.errorMessage = "This account does not exist";
-          res.redirect("/login"); // 重定向回登录页面
+          res.redirect("/login");
       }
   });
 });
@@ -1144,7 +1194,7 @@ app.post("/logout", (req, res) => {
       if (err) {
           console.error("Error logging out:", err);
       }
-      res.redirect("/"); // 登出后重定向到首页
+      res.redirect("/");
   });
 });
 
@@ -1175,7 +1225,7 @@ app.post("/register", (req, res) => {
 
       // 如果 row 不为空，表示用户名或邮箱已存在
       if (row) {
-          const errorMessage = 'Username or email already exists'; // 用户名或邮箱已存在的错误信息
+          const errorMessage = 'This email already exists'; // 用户名或邮箱已存在的错误信息
           return res.redirect(`/register?error=${encodeURIComponent(errorMessage)}`);
       }
 
@@ -1283,9 +1333,14 @@ app.post("/profile/delete", (req, res) => {
 //-------
 // LISTEN
 //-------
+
+
 app.listen(port, function () {
   console.log(`Server up and running, listening on port ${port}`);
 });
+
+
+
 
 //----------
 // FUNCTIONS
@@ -1325,8 +1380,9 @@ function initializeMembersData() {
     // Insert members into the database
     members.forEach((member) => {
       db.run(
-        `INSERT INTO members (name, birthday, mbti, zodiac_sign, blood_type, image) VALUES (?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO members (id, name, birthday, mbti, zodiac_sign, blood_type, image) VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [
+          member.id,
           member.name,
           member.birthday,
           member.mbti,
@@ -1439,10 +1495,11 @@ function initializeEventsData() {
       console.error(err.message);
     }
 
-    events.forEach((event) => {
+    // 按顺序插入事件数据
+    events.forEach((event, index) => {
       db.run(
-        `INSERT INTO events (concert_date, country, place) VALUES (?, ?, ?)`,
-        [event.concert_date, event.country, event.place],
+        `INSERT INTO events (id, concert_date, country, place) VALUES (?, ?, ?, ?)`,
+        [index + 1, event.concert_date, event.country, event.place], // index + 1 确保从 1 开始
         (err) => {
           if (err) {
             console.error(err.message);
@@ -1450,5 +1507,41 @@ function initializeEventsData() {
         }
       );
     });
+  });
+}
+
+
+function initializeVenuesData() {
+  db.run("DELETE FROM venues", (err) => {
+    if (err) {
+      console.error(err.message);
+    }
+
+    // 按顺序插入场馆数据
+    venues.forEach((venue, index) => {
+      db.run(
+        `INSERT INTO venues (id, event_id, address, capacity, open_hours) VALUES (?, ?, ?, ?, ?)`,
+        [index + 1, venue.event_id, venue.address, venue.capacity, venue.open_hours], // index + 1 确保从 1 开始
+        (err) => {
+          if (err) {
+            console.error(err.message);
+          } else {
+            console.log(`Inserted venue: ${venue.address}`); // 添加调试信息
+          }
+        }
+      );
+    });
+  });
+}
+
+function getVenueDetails(eventId) {
+  return new Promise((resolve, reject) => {
+    const venue = venues.find(v => v.event_id === eventId); // 找到对应的场馆
+    console.log("Looking for venue with event_id:", eventId); // 调试信息
+    if (venue) {
+      resolve(venue); // 返回找到的场馆信息
+    } else {
+      reject("Venue not found"); // 未找到场馆
+    }
   });
 }

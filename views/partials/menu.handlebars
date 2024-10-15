@@ -1,124 +1,87 @@
 <nav class="navbar">
   <div class="container">
-    <a href="/" class="logo"><img src="/img/logo.svg" class="logo-image" /></a>
-    <!-- 网站 Logo -->
+    <a href="/" class="logo"><img src="/img/logo.png" class="logo-image" /></a>
+
     <div class="nav-links" id="nav-links">
       <div class="nav-item">
         <a href="/" title="Home">
-          <box-icon name="file-txt" type="solid"></box-icon>
+          <box-icon name="file-txt" type="solid" color="#f4b2d7"></box-icon>
           <span>Home</span>
         </a>
       </div>
       <div class="nav-item">
         <a href="/about" title="About">
-          <box-icon type="solid" name="quote-single-left"></box-icon>
+          <box-icon
+            type="solid"
+            name="quote-single-left"
+            color="#f4b2d7"
+          ></box-icon>
           <span>About</span>
         </a>
       </div>
       <div class="nav-item">
         <a href="/music" title="Music">
-          <box-icon type="solid" name="album"></box-icon>
+          <box-icon type="solid" name="album" color="#f4b2d7"></box-icon>
           <span>Music</span>
         </a>
       </div>
       <div class="nav-item">
         <a href="/imprints" title="Starlit Imprints">
-          <box-icon type="solid" name="magic-wand"></box-icon>
+          <box-icon type="solid" name="magic-wand" color="#f4b2d7"></box-icon>
           <span>Starlit Imprints</span>
         </a>
       </div>
       <div class="nav-item">
         <a href="/events" title="Events">
-          <box-icon type="solid" name="hot"></box-icon>
+          <box-icon type="solid" name="hot" color="#f4b2d7"></box-icon>
           <span>Events</span>
         </a>
       </div>
       <div class="nav-item">
         <a href="/contact" title="Contact">
-          <box-icon type="solid" name="message-square-detail"></box-icon>
+          <box-icon
+            type="solid"
+            name="message-square-detail"
+            color="#f4b2d7"
+          ></box-icon>
           <span>Contact</span>
         </a>
       </div>
 
-      <!--
       <div class="nav-item">
         {{#if isLoggedIn}}
-          <a href="/logout" title="Log out">
-            <box-icon name="ghost" type="solid"></box-icon>
-            <span>Hi, {{name}} - Log out</span>
+          <a href="/profile" title="Profile" style="display: inline-block;">
+            <box-icon name="ghost" type="solid" color="#f4b2d7"></box-icon>
+            <span>Hi, {{name}} -<br /><br /><br /></span>
           </a>
-        {{else}}
-          <a href="/login" title="Login">
-            <box-icon name="ghost" type="solid"></box-icon>
-            <span>Login</span>
-          </a>
-        {{/if}}
-      </div>
--->
-
-<!--
-      <div class="nav-item">
-        {{#if isLoggedIn}}
-          <a href="/profile" title="Profile">
-
-            <box-icon name="ghost" type="solid"></box-icon>
-            <span>Hi, {{name}}</span>
-          </a>
-        {{else}}
-          <a href="/login" title="Login">
-            <box-icon name="ghost" type="solid"></box-icon>
-            <span>Login</span>
-          </a>
-        {{/if}}
-      </div>
--->
-
-<!--
-<div class="nav-item">
-    {{#if isLoggedIn}}
-        <a href="/profile" title="Profile">
-            <box-icon name="ghost" type="solid"></box-icon>
-            <span>Hi, {{name}}</span>
-        </a>
-        <form action="/logout" method="POST" style="display:inline;"> 
-            <button type="submit" title="Log out">Log out</button>
-        </form>
-    {{else}}
-        <a href="/login" title="Login">
-            <box-icon name="ghost" type="solid"></box-icon>
-            <span>Login</span>
-        </a>
-    {{/if}}
-</div>
--->
-
-<div class="nav-item">
-    {{#if isLoggedIn}}
-        <a href="/profile" title="Profile" style="display: inline-block;">
-            <box-icon name="ghost" type="solid"></box-icon>
-            <span>Hi, {{name}} -<br/><br/><br/></span>
-        </a>
-        <a href="/logout" title="Log out" class="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          <a
+            href="/logout"
+            title="Log out"
+            class="logout"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+          >
             <span>Log out</span>
-        </a>
-        <form id="logout-form" action="/logout" method="POST" style="display: none;"></form>
-    {{else}}
-        <a href="/login" title="Login">
-            <box-icon name="ghost" type="solid"></box-icon>
+          </a>
+          <form
+            id="logout-form"
+            action="/logout"
+            method="POST"
+            style="display: none;"
+          ></form>
+        {{else}}
+          <a href="/login" title="Login">
+            <box-icon name="ghost" type="solid" color="#f4b2d7"></box-icon>
             <span>Login</span>
-        </a>
-    {{/if}}
-</div>
-
-
+          </a>
+        {{/if}}
+      </div>
 
       <div class="nav-item">
         <a href="/register" title="Register">
-          <box-icon name="plus-medical"></box-icon>
+          <box-icon name="plus-medical" color="#f4b2d7"></box-icon>
           <span>Register</span>
         </a>
       </div>
-
 
     </div>
   </div>
